@@ -11,15 +11,17 @@ Label::Label(int _xpos, int _ypos, int _length, int _col){
 }
 
 void Label::set_value(char* _value){
-  value=_value;
+  value = _value;
 }
 
-void Label::print(void){
+void Label::print(){
+  Serial.println(value);
   int x,y;
   for(x=0; x<length;x++){
     int xshift = x * 8;
     for(y=0; y<8; y++){
-      int c = font[value[x]-34][y];
+      Serial.println(value[x], HEX);
+      int c = font[16][y];
       line_to_dots(c, xpos+y+xshift, ypos);
     }
   }
@@ -27,6 +29,7 @@ void Label::print(void){
 
 void Label::line_to_dots(int c, int base_x, int base_y ){
   int x;
+  //Serial.println(c, HEX);
   for(x=0; x<8; x++){
     int mask = 2^x+1;
     if ( c & mask){

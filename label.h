@@ -9,7 +9,7 @@ class Label
    public:
      Label(int _xpos, int _ypos, int _length, int _col);
      void set_value(char* _value);
-     void print(void);
+     void print();
    private:
      int xpos;
      int ypos;
