@@ -14,6 +14,10 @@ void Label::set_value(char _value[]){
   strcpy(value,_value);
 }
 
+void Label::set_value(int _value){
+  sprintf(value, "%i", _value);
+}
+
 void Label::print(){
 
   int pos,y;
@@ -24,8 +28,8 @@ void Label::print(){
     Serial.println(character, DEC);
     delay(200);
     for(y=0; y<8; y++){
-      int c = font[character+32][y];
-      line_to_dots(c, xpos+y+xshift, ypos);
+      int c = font[character-32][y];
+      line_to_dots(c, xpos+y, ypos+xshift);
     }
   }
 }
@@ -34,7 +38,7 @@ void Label::line_to_dots(int c, int base_x, int base_y ){
   int x;
   for(x=0; x<8; x++){
     if ( c & (1<<x) ){
-      LCDSetPixel(color, base_x, base_y+x);
+      LCDSetPixel(color, base_y-x+8, base_x);
     }
   }
 }
