@@ -15,7 +15,8 @@ void Label::set_value(char _value[]){
 }
 
 void Label::set_value(int _value){
-  sprintf(value, "%i", _value);
+  //  improve this
+  sprintf(value, "%04u", _value);
 }
 
 void Label::print(){
@@ -25,8 +26,6 @@ void Label::print(){
     int xshift = pos * 8;
     
     int character = value[pos];
-    Serial.println(character, DEC);
-    delay(200);
     for(y=0; y<8; y++){
       int c = font[character-32][y];
       line_to_dots(c, xpos+y, ypos+xshift);
