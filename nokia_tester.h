@@ -1,5 +1,4 @@
 void delay_us(int x);
-void delay_ms(int x);
 void ioinit(void);
 void reset(void);
 
@@ -58,14 +57,6 @@ void reset(void);
 	#define	LCD_PORT_DIO	PORTB
 #endif
 
-
-/* Old
-#define CS			2		// D10
-#define SCK			3		// D11
-#define LCD_RES		1		// D9
-#define DIO			4		// D12
-#define LCD_PORT	PORTB
-*/
 
 //*******************************************************
 //						Macros
