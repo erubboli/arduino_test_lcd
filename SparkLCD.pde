@@ -33,6 +33,10 @@
 #define	kSwitch2_PIN	4
 #define	kSwitch3_PIN	5
 
+//************************************************************************
+
+  Label label1 = Label(10,10,5,RED);
+  Label label2 = Label(10,45,4,RED);
 
 //************************************************************************
 //					Main Code
@@ -42,49 +46,29 @@ void	setup(){
   unsigned long	startTime;
   ioinit();
   Serial.begin(9600);
-        
+
   LCDInit();			//Initialize the LCD
   
+  pinMode(A0, INPUT);  
   LCDClear(BLACK);
-
-  LCDPrintLogo();
-
+  label1.set_value("Res: ");
 }
 
 //************************************************************************
 //					Loop
 //************************************************************************
-void	loop()
-{
-        int	s1, s2, s3;
+void	loop(){
+  int val = analogRead(A0);
+  label2.set_value(val);
+  refresh_screen(); 
+  delay(500);
+}
+//************************************************************************
 
-	s1	=	!digitalRead(kSwitch1_PIN);
-	s2	=	!digitalRead(kSwitch2_PIN);
-	s3	=	!digitalRead(kSwitch3_PIN);
-
-        
-	if (s1)
-	{
-		Serial.println("GRREN");
-		LCDClear(GREEN);
-		LCDPrintLogo();
-	}
-	else if (s2)
-	{
-		Serial.println("WHITE");
-		LCDClear(WHITE);
-		LCDPrintLogo();
-	}
-	else if (s3)
-	{
-	  LCDClear(WHITE);
-          Label label1 = Label(50,50,3,RED);
-          label1.set_value("012");
-          label1.print();
-	//	DisplayRGBimage();
-		delay(5000);
-	}
-	delay(200);
+void refresh_screen(){
+  LCDClear(BLACK);
+  label1.print();
+  label2.print();
 }
 
 //************************************************************************
@@ -124,7 +108,6 @@ int color12bit;
 	color12bit	+=	(rgbColor->blue >> 4) & 0x0f;
 	
 	LCDSetPixel(color12bit, col, row);
-//	LCDSetPixel(color12bit, row, col);
 }
 
 //*******************************************************************************
@@ -139,73 +122,6 @@ int	s1, s2, s3;
 	return(s1 || s2 || s3);
 }
 
-
-
-
-//*******************************************************************************
-void	DisplayRawRGB(uint8_t *rgbData, int xLoc, int yLoc)
-{
-int			imageWidth, imageHeight;
-int			byte1, byte2;
-long		dataIndex;
-int			ii, jj;
-RGBColor	myColor;
-int			myXX, myYY;
-
-
-	dataIndex	=	0;
-	byte1		=	pgm_read_byte(rgbData + dataIndex++);
-	byte2		=	pgm_read_byte(rgbData + dataIndex++);
-	imageWidth	=	(byte1 << 8) + byte2;
-	byte1		=	pgm_read_byte(rgbData + dataIndex++);
-	byte2		=	pgm_read_byte(rgbData + dataIndex++);
-	imageHeight	=	(byte1 << 8) + byte2;
-
-	//*	if x,y are negitive, then center
-	myXX	=	xLoc;
-	myYY	=	yLoc;
-	if (myXX < 0)
-	{
-		myXX	=	(gWidth - imageWidth) / 2;
-	}
-	if (myYY < 0)
-	{
-		myYY	=	(gHeight - imageHeight) / 2;
-	}
-	if (imageWidth < 100)
-	{
-		myXX	=	0;
-		myYY	=	0;
-	}
-	for (jj=0; jj<imageHeight; jj++)
-	{
-		for (ii=0; ii<imageWidth; ii++)
-		{
-			myColor.green	=	pgm_read_byte(rgbData + dataIndex++);
-			myColor.red		=	pgm_read_byte(rgbData + dataIndex++);
-			myColor.blue	=	pgm_read_byte(rgbData + dataIndex++);
-		
-			if (imageWidth < 100)
-			{
-			short	doubleX, doubleY;
-			
-				doubleX	=	myXX + (2 * ii);
-				doubleY	=	myYY + (2 * jj);
-				setPixel(doubleX,		doubleY, &myColor);
-				setPixel(doubleX + 1,	doubleY, &myColor);
-			
-				setPixel(doubleX,		doubleY + 1, &myColor);
-				setPixel(doubleX + 1,	doubleY + 1, &myColor);
-
-			}
-			else
-		
-			{
-				setPixel((myXX + ii), (myYY + jj), &myColor);
-			}
-		}
-	}
-}
 
 
 
