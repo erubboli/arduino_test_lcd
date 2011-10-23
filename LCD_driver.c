@@ -223,7 +223,7 @@ int	myYYvalue;
 
 //*	Apr  3,	2010	<MLS> This is to make it "RIGHT" side up
 	
-	myYYvalue	=	(COL_HEIGHT - 1) - y;
+	myYYvalue = (COL_HEIGHT - 1) - y;
 
 	#ifdef EPSON
 		LCDCommand(PASET);	// page start/end ram
