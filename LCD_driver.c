@@ -11,7 +11,7 @@
 //*	Apr  2,	2010	<MLS> The code was written for WinAVR, I modified it to compile under Arduino
 //*	Apr  3,	2010	<MLS> Changed LCDSetPixel to make it "RIGHT" side up
 //*	Apr  3,	2010	<MLS> Made LCDSetPixel public
-//*	Apr  3,	2010	<MLS> Working on MEGA, pin defs in nokia_tester.h
+//*	Apr  3,	dwiosjioajdsioajdasioj2010	<MLS> Working on MEGA, pin defs in nokia_tester.h
 //*	Apr  4,	2010	<MLS> Removed delays from LCDCommand & LCDCommand, increased speed by 75%
 //************************************************************************
 #include "nokia_tester.h"
